@@ -1,0 +1,5 @@
+package com.campusincident.observer;
+
+public class ITSupportObserver {
+    
+}

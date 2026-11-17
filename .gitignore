@@ -1,0 +1,35 @@
+
+# Java compiled files
+*.class
+
+# Build output directories
+bin/
+out/
+build/
+target/
+
+# Java archives generated during builds
+*.jar
+*.war
+*.ear
+
+# VS Code local settings
+.vscode/settings.json
+.vscode/launch.json
+
+# Java language server generated files
+.metadata/
+.factorypath
+.classpath
+.project
+
+# Operating system files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Temporary files and logs
+*.log
+*.tmp
+*.bak
+*~
