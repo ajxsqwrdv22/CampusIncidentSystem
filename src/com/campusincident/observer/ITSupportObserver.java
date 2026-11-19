@@ -2,10 +2,13 @@ package com.campusincident.observer;
 
 import com.campusincident.model.Incident;
 import com.campusincident.model.IncidentStatus;
+import com.campusincident.strategy.NotificationContext;
 
 public class ITSupportObserver implements IncidentObserver {
 
     private final String name;
+    private NotificationContext notificationContext;
+
 
     public ITSupportObserver(String name) {
 
@@ -18,13 +21,43 @@ public class ITSupportObserver implements IncidentObserver {
         this.name = name.trim();
     }
 
-    @Override
-    public void onIncidentStatusChanged(
-            Incident incident,
-            IncidentStatus oldStatus,
-            IncidentStatus newStatus
-    ) {
+public void setNotificationContext(NotificationContext notificationContext) {
 
+    if (notificationContext == null) {
+        throw new IllegalArgumentException(
+            "Notification context cannot be null."
+        );
+    }
+
+    this.notificationContext = notificationContext;
+}
+
+    
+@Override
+public void onIncidentStatusChanged(
+        Incident incident,
+        IncidentStatus oldStatus,
+        IncidentStatus newStatus
+) {
+
+    // Build a message describing the status change
+    String message =
+        "Incident " + incident.getIncidentId()
+        + " (" + incident.getTitle() + ")"
+        + " changed from " + oldStatus
+        + " to " + newStatus + ".";
+
+    // Use the selected strategy if a context is assigned
+    if (notificationContext != null) {
+
+        notificationContext.sendNotification(
+            name,
+            message
+        );
+
+    } else {
+
+        // Preserve the original IT Support notification
         System.out.println(
             "[IT SUPPORT] " + name
             + " received an update for incident "
@@ -40,4 +73,6 @@ public class ITSupportObserver implements IncidentObserver {
             + oldStatus + " -> " + newStatus
         );
     }
+}
+
 }
