@@ -1,5 +1,13 @@
 package com.campusincident.observer;
 
-public class IncidentObserver {
-    
+import com.campusincident.model.Incident;
+import com.campusincident.model.IncidentStatus;
+
+public interface IncidentObserver {
+
+    void onIncidentStatusChanged(
+        Incident incident,
+        IncidentStatus oldStatus,
+        IncidentStatus newStatus
+    );
 }
